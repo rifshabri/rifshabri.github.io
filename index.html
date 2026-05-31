@@ -16,23 +16,74 @@
   box-sizing:border-box;
 }
 
+::selection {
+  background: #00d4ff;
+  color: #000;
+}
+
 html{
   scroll-behavior:smooth;
 }
 
 body{
-  font-family:'Inter', sans-serif;
-  background:#0f0f0f;
-  color:white;
+  font-family:'Inter',sans-serif;
+  background:radial-gradient(circle at top, #151515, #0b0b0f);
+  color:#fff;
   line-height:1.6;
+  cursor:none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
 }
 
+.magnetic{
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+    
+  will-change: transform;
+}
+
+.magnetic:hover{
+  box-shadow:
+    0 0 30px rgba(0,212,255,.4),
+    0 0 80px rgba(0,212,255,.15);
+}
+
+.cursor-dot {
+  width: 10px;
+  height: 10px;
+  background: #00d4ff;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid #00d4ff;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  mix-blend-mode: difference;
+}
+
+/* =========================
+   HEADER
+========================= */
+h1, h2, h3 {
+  letter-spacing: -0.03em;
+}
 header{
   position:fixed;
-  width:100%;
   top:0;
   left:0;
-  background:rgba(15,15,15,0.95);
+  width:100%;
+  background:rgba(15,15,15,.95);
   backdrop-filter:blur(10px);
   z-index:1000;
 }
@@ -40,78 +91,34 @@ header{
 nav{
   max-width:1200px;
   margin:auto;
+  padding:20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:20px;
+  cursor:none;
 }
 
 nav ul{
   display:flex;
   gap:25px;
   list-style:none;
+  cursor:none;
 }
 
 nav a{
   color:white;
   text-decoration:none;
-  transition:0.3s;
+  transition:.3s;
 }
 
 nav a:hover{
   color:#00d4ff;
+  cursor:none;
 }
 
-#hero{
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:20px;
-}
-
-.hero-content{
-  max-width:800px;
-}
-
-.hero-content h1{
-  font-size:4.5rem;
-  font-weight:800;
-  letter-spacing:-3px;
-  line-height:1;
-  margin-bottom:15px;
-}
-
-.hero-content h3{
-  color:#00d4ff;
-  font-weight:500;
-  margin-bottom:20px;
-  font-size:1.3rem;
-}
-
-.hero-content p{
-  max-width:650px;
-  margin:0 auto 30px;
-  font-size:1.1rem;
-  color:#bdbdbd;
-}
-
-button{
-  padding:16px 34px;
-  border:none;
-  border-radius:999px;
-  background:#00d4ff;
-  color:#000;
-  font-weight:700;
-  cursor:pointer;
-  transition:.3s;
-}
-
-button:hover{
-  transform:translateY(-3px);
-  box-shadow:0 15px 35px rgba(0,212,255,.35);
-}
+/* =========================
+   GENERAL SECTION
+========================= */
 
 section{
   max-width:1200px;
@@ -120,9 +127,293 @@ section{
 }
 
 section h2{
-  margin-bottom:30px;
   font-size:2rem;
+  margin-bottom:30px;
 }
+
+.reveal-text {
+  position: relative;
+  display: inline-block;
+  color: #666;
+  transition: 0.3s;
+}
+
+.reveal-text:hover {
+  color: #00d4ff;
+  letter-spacing: 2px;
+}
+
+/* =========================
+   HERO
+========================= */
+
+#hero{
+  position:relative;
+  overflow:visible;
+  min-height:100vh;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  text-align:center;
+
+  padding-top:120px;
+}
+
+.hero-glow{
+  position:fixed;
+  width:700px;
+  height:700px;
+  background:#00d4ff;
+  border-radius:50%;
+  filter:blur(220px);
+  opacity:.12;
+  z-index:-1;
+}
+
+.cursor-glow{
+  position:fixed;
+
+  width:100px;
+  height:100px;
+
+  border-radius:50%;
+
+  background:rgba(0,212,255,.15);
+
+  filter:blur(80px);
+
+  pointer-events:none;
+
+  left:50%;
+  top:50%;
+
+  transform:translate(-50%,-50%);
+
+  transition:
+    left .1s linear,
+    top .1s linear;
+
+  z-index:0;
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+
+.bg-text{
+  position:absolute;
+
+  top:50%;
+  left:50%;
+
+  transform:translate(-50%,-50%);
+
+  font-size:5rem;
+  font-weight:900;
+
+  color:rgba(255,255,255,.0);
+
+  white-space:nowrap;
+
+  transition:.5s ease;
+
+  pointer-events:none;
+
+  z-index:0;
+}
+
+#hero:hover .bg-text{
+  color:rgba(255,255,255,.05);
+
+  letter-spacing:15px;
+
+  transform:
+    translate(-50%,-50%)
+    scale(1.03);
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile-image{
+  width:160px;
+  height:160px;
+
+  object-fit:cover;
+
+  border-radius:50%;
+
+  border:4px solid #00d4ff;
+
+  margin-bottom:20px;
+  
+  animation:float 4s ease-in-out infinite;
+  box-shadow:
+  0 0 30px rgba(0,212,255,.3),
+  0 0 80px rgba(0,212,255,.15);
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  
+  background: transparent;
+
+  border:2px solid rgba(255,255,255,.1);
+
+  backdrop-filter:blur(20px);
+
+  padding:10px 10px;
+  border-radius:999px;
+  margin-bottom:20px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:3px;
+}
+
+.hero-content h1{
+  font-size:clamp(2.5rem, 5VW, 5rem);
+  text-transform:uppercase;
+  letter-spacing:3px;
+  margin-top:-25px;
+}
+
+.hero-content h3{
+  color:#00d4ff;
+
+  font-size:1.3rem;
+  font-weight:700;
+  letter-spacing:-0.5px;
+  margin-top:-15px;
+  margin-bottom:5px;
+}
+
+.hero-content p{
+  max-width:650px;
+
+  margin:0 auto 30px;
+
+  color:#bdbdbd;
+
+  font-size:1.1rem;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.hero-btn{
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:16px 34px;
+
+  border-radius:999px;
+
+  text-decoration:none;
+
+  font-weight:700;
+
+  background:#00d4ff;
+
+  color:#000;
+
+  transition:.3s;
+
+  min-width:190px;
+}
+
+.hero-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 15px 35px rgba(0,212,255,.35);
+  cursor:none;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.secondary-btn{
+  background:transparent;
+  color:white;
+  border:1px solid #333;
+}
+
+.secondary-btn:hover{
+  border-color:#00d4ff;
+  cursor:none;
+}
+
+a, button {
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+a:hover, button:hover {
+  opacity: 0.9;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+  margin-top:50px;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  gap:50px;
+  flex-wrap:wrap;
+}
+
+.stat{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.number{
+  color:#00d4ff;
+
+  font-size:2rem;
+  font-weight:700;
+}
+
+.label{
+  color:#bdbdbd;
+
+  font-size:1rem;
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+#about p{
+  color:#bdbdbd;
+  max-width:800px;
+}
+
+/* =========================
+   SKILLS
+========================= */
 
 .skills-list{
   display:flex;
@@ -132,100 +423,56 @@ section h2{
 
 .skills-list div{
   background:#1c1c1c;
+
   padding:12px 20px;
-  border-radius:8px;
+
+  border-radius:10px;
+
+  transition:.3s;
 }
+
+.skills-list div:hover{
+  background:#252525;
+}
+
+.about-container {
+  max-width: 900px;
+  margin: auto;
+}
+
+/* =========================
+   PORTFOLIO
+========================= */
 
 .portfolio-grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+
+  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+
   gap:20px;
 }
 
 .project-card{
   position:relative;
+
   overflow:hidden;
+
   border-radius:20px;
+
   cursor:pointer;
-  transition:all .4s ease;
+
+  transition:.4s ease;
 }
 
-footer{
-  text-align:center;
-  padding:30px;
-  border-top:1px solid #222;
-}
-
-.hero-content h1{
-  font-weight:800;
-  font-size:2.5rem;
-  letter-spacing:-2px;
-}
-.profile-image{
-  width:180px;
-  height:180px;
-  object-fit:cover;
-  border-radius:50%;
-  margin-bottom:30px;
-  border:4px solid #00d4ff;
-}
-  
-.badge{
-  display:inline-block;
-  padding:8px 16px;
-  background:#1c1c1c;
-  border:1px solid #333;
-  border-radius:999px;
-  margin-bottom:20px;
-  font-size:12px;
-  letter-spacing:2px;
-}
-  
 .project-card img{
   width:100%;
-  height:450px;
-  object-fit:cover;
   display:block;
-  transition:0.5s ease;
+
+  object-fit:cover;
+
+  transition:.5s ease;
 }
 
-.project-info{
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:100%;
-  padding:25px;
-  background:linear-gradient(
-    transparent,
-    rgba(0,0,0,0.95)
-    );
-}
-
-.project-info h3{
-  margin-bottom:8px;
-}
-
-.project-card:hover img{
-  transform:scale(1.09);
-}
-
-.project-card:hover{
-  box-shadow:0 20px 50px rgba(0,212,215,.25);
-}
-
-/*Bagian Fade-out Scrolling*/
-.fade-up{
-  opacity:0;
-  transform:translateY(50px);
-  transition:all 0.8s ease;
-}
-
-.fade-up.show{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/*Gallery*/
 .large img{
   height:600px;
 }
@@ -237,56 +484,90 @@ footer{
 .tall img{
   height:750px;
 }
-/*Hero Glow*/
-#hero{
-  position:relative;
-  overflow:hidden;
-}
 
-.hero-content{
-  position:relative;
-  z-index:2;
-}
-
-.hero-glow{
+.project-info{
   position:absolute;
-  width:600px;
-  height:600px;
-  background:#00d4ff;
-  border-radius:50%;
-  filter:blur(180px);
-  opacity:.12;
-  top:-150px;
-  left:50%;
-  transform:translateX(-50%);
-  pointer-events:none;
+
+  left:0;
+  bottom:0;
+
+  width:100%;
+
+  padding:25px;
+
+  background:linear-gradient(
+    transparent,
+    rgba(0,0,0,.95)
+  );
 }
 
-/*Contact*/
+.project-info h3{
+  margin-bottom:8px;
+}
+
+.project-card:hover img{
+  transform:scale(1.08);
+}
+
+.project-card:hover{
+  box-shadow:0 10px 25px rgba(0,212,255,.15);
+  cursor:none;
+}
+
+/* =========================
+   SCROLL ANIMATION
+========================= */
+
+.fade-up{
+  opacity:0;
+  transform:translateY(50px);
+
+  transition:all 2.5s ease;
+}
+
+.fade-up.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* =========================
+   CONTACT
+========================= */
+
 #contact{
   text-align:center;
 }
 
 .contact-desc{
   max-width:600px;
+
   margin:0 auto 30px;
+
   color:#bdbdbd;
 }
 
 .contact-buttons{
   display:flex;
   justify-content:center;
+
   gap:15px;
+
   flex-wrap:wrap;
 }
 
 .contact-btn{
   text-decoration:none;
+
   color:#000;
+
   background:#00d4ff;
+
   padding:14px 28px;
+
   border-radius:999px;
+
   font-weight:700;
+
   transition:.3s;
 }
 
@@ -295,18 +576,26 @@ footer{
   box-shadow:0 15px 35px rgba(0,212,255,.35);
 }
 
-/*Social Media*/
+/* =========================
+   SOCIAL
+========================= */
+
 .social-links{
   margin-top:30px;
+
   display:flex;
   justify-content:center;
+
   gap:25px;
+
   flex-wrap:wrap;
 }
 
 .social-links a{
   color:#bdbdbd;
+
   text-decoration:none;
+
   transition:.3s;
 }
 
@@ -314,8 +603,33 @@ footer{
   color:#00d4ff;
 }
 
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  text-align:center;
+
+  padding:30px;
+
+  border-top:1px solid #222;
+}
+
+/* =========================
+   LOGO
+========================= */
+
+.logo{
+  height:40px;
+  width:auto;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
 @media(max-width:768px){
-  
+
   nav{
     flex-direction:column;
     gap:15px;
@@ -326,6 +640,46 @@ footer{
     justify-content:center;
   }
 
+  .hero-content h1{
+    font-size:2.8rem;
+  }
+
+  .profile-image{
+    width:150px;
+    height:150px;
+  }
+
+  .stats{
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .portfolio-grid{
+    grid-template-columns:1fr;
+  }
+
+  .large img,
+  .medium img,
+  .tall img{
+    height:400px;
+  }
+
+}
+
+@keyframes float{
+
+  0%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(-12px);
+  }
+
+  100%{
+    transform:translateY(0);
+  }
+
 }
 
 </style>
@@ -333,34 +687,47 @@ footer{
 </head>
 
 <body>
-
+  <div class="cursor-glow"></div>
+  <div class="cursor-dot"></div>
+  <div class="custom-cursor"></div>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  alt="Brand identity design project"
 <header>
   <nav>
-    <h2>Rifqi.</h2>
+    <img
+  src="LINK_LOGO"
+  alt="Rifqi Logo"
+  class="logo"
+  >
 
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#portfolio">Portofolio</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 </header>
 
-<section id="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-content">
+  <section id="hero">
+    <div class="container">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+    <div class="bg-text">
+  CREATIVE DESIGNER</div>
     <img
       src="https://i.ibb.co.com/JwtjdHNc/Gemini-Generated-Image-beqadobeqadobeqa.png"
       alt="Muhammad Rifqi Shabri"
       class="profile-image"
     >
+
     <div class="badge">
       AVAILABLE FOR FREELANCE
     </div>
+
     <h1>Muhammad Rifqi Shabri</h1>
 
-    <h3>Graphic Designer & Creative Freelancer</h3>
+    <h3>Graphic Designer • Brand Identity • Visual Marketing</h3>
 
     <p>
       Creating impactful visual identities,
@@ -368,21 +735,59 @@ footer{
       and marketing assets that help brands stand out.
     </p>
 
-    <button>View Portfolio</button>
+    <a href="#portfolio" class="hero-btn magnetic">
+      View Portofolio
+    </a>
+    
+    <a
+    href="CV_Muhammad_Rifqi_Shabri.pdf"
+    class="hero-btn secondary-btn magnetic"
+    target="_blank"
+  >
+    Download CV
+  </a>
+
+    <div class="stats">
+
+  <div class="stat">
+    <span class="number">5+</span>
+    <span class="label">Years</span>
+  </div>
+
+  <div class="stat">
+    <span class="number">100+</span>
+    <span class="label">Projects</span>
+  </div>
+
+  <div class="stat">
+    <span class="number">10+</span>
+    <span class="label">Brands</span>
+  </div>
+
+  </div>
+
+  </div>
   </div>
 </section>
 
 <section id="about" class="fade-up">
-  <h2>About Me</h2>
+    <div class="container">
+    <h2>About Me</h2>
 
-  <p>
-    Experienced graphic designer specializing in
-    branding, social media content, packaging design,
-    and visual communication.
-  </p>
+    <p class="about-intro">
+      Experienced graphic designer specializing in branding,
+      social media content, packaging design, and visual communication.
+    </p>
+
+    <p class="about-detail">
+      I focus on creating impactful visuals that help brands communicate
+      effectively and stand out in competitive markets.
+    </p>
+  </div>
 </section>
 
 <section id="skills" class="fade-up">
+  <div class="container">
   <h2>Skills</h2>
 
   <div class="skills-list">
@@ -393,9 +798,11 @@ footer{
     <div>Brand Identity</div>
     <div>Digital Marketing</div>
   </div>
+  </div>
 </section>
 
 <section id="portfolio" class="fade-up">
+  <div class="container">
   <h2>Featured Projects</h2>
 
   <div class="portfolio-grid">
@@ -432,10 +839,11 @@ footer{
       </div>
     </div>
   </div>
+ </div>
 </section>
 
 <section id="contact" class="fade-up">
-
+  <div class="container">
   <h2>Let's Work Together</h2>
 
   <p class="contact-desc">
@@ -446,10 +854,10 @@ footer{
   <div class="contact-buttons">
 
 <a href="mailto:rif.shabri@gmail.com"
-  class="contact-btn">Contact Me</a>
+  class="contact-btn magnetic">Contact Me</a>
     
 <a href="https://wa.me/62882019216022" 
-  class="contact-btn"
+  class="contact-btn magnetic"
   target="_blank">WhatsApp</a>
   </div>
   
@@ -459,34 +867,94 @@ footer{
 
   <a href="#">Behance</a>
 
-  <a href="https://linkedin.com/in/muhammadrifqishabri">LinkedIn</a>
+    <a href="https://linkedin.com/in/muhammadrifqishabri">LinkedIn</a>
 
-</div>
+      </div>
+  </div>
+  </section>
 
-</section>
-
-<footer>
-  <p>© 2026 Muhammad Rifqi Shabri</p>
-</footer>
+  <footer>
+    <p>© 2026 Muhammad Rifqi Shabri</p>
+  </footer>
 
 <script>
 
-const observer = new IntersectionObserver((entries)=>{
-  
-  entries.forEach((entry)=>{
-    
-    if(entry.isIntersecting){
+
+/*///Background///*/
+
+/*///Fade///*/
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
       entry.target.classList.add("show");
     }
-    
   });
-  
+}, {
+  threshold: 0.1
 });
 
-document.querySelectorAll(".fade-up").forEach((el)=>{
+document.querySelectorAll(".fade-up").forEach((el) => {
   observer.observe(el);
 });
 
+/*//Cursor//*/
+document.addEventListener("mousemove", (e) => {
+  const glow = document.querySelector(".hero-glow");
+
+  const x = (e.clientX / window.innerWidth - 0.5) * 40;
+  const y = (e.clientY / window.innerHeight - 0.5) * 40;
+
+  glow.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+const cursor = document.querySelector(".custom-cursor");
+const dot = document.querySelector(".cursor-dot");
+
+let mouseX = 0;
+let mouseY = 0;
+
+let cursorX = 0;
+let cursorY = 0;
+
+document.addEventListener("mousemove", (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+
+  dot.style.left = mouseX + "px";
+  dot.style.top = mouseY + "px";
+});
+
+function animateCursor() {
+  cursorX += (mouseX - cursorX) * 0.15;
+  cursorY += (mouseY - cursorY) * 0.15;
+
+  cursor.style.left = cursorX + "px";
+  cursor.style.top = cursorY + "px";
+
+  requestAnimationFrame(animateCursor);
+}
+
+animateCursor();
+
+/*Magnetic*/
+
+const magnets = document.querySelectorAll(".magnetic");
+
+magnets.forEach((el) => {
+  el.addEventListener("mousemove", (e) => {
+    const rect = el.getBoundingClientRect();
+
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+
+    el.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+  });
+
+  el.addEventListener("mouseleave", () => {
+    el.style.transform = "translate(0,0)";
+  });
+});
 </script>
 
 </body>
